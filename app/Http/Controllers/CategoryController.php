@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Category;
-
+use Illuminate\Support\Facades\Gate;
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+        if(Gate::allows('manage-categories')) return $next($request);
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +48,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20",
+            "image" => "required"
+            ])->validate();
+
         $name = $request->get('name');
         $new_category = new \App\Category;
         $new_category->name = $name;
@@ -92,6 +105,13 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = \App\Category::findOrFail($id);
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20",
+            "image" => "required",
+            "slug" => [
+            "required",
+            Rule::unique("categories")->ignore($category->slug, "slug") ]
+            ])->validate();
         $name = $request->get('name');
         $slug = $request->get('slug');
 
@@ -153,4 +173,10 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('status', 'Category permanently deleted');
         }
     }
+
+    public function ajaxSearch(Request $request){
+        $keyword = $request->get('q');
+        $categories = \App\Category::where("name", "LIKE", "%$keyword%")->get();
+        return $categories;
+        }
 }

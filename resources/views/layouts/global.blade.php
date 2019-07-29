@@ -27,20 +27,17 @@
         <script type="text/javascript">
             document.documentElement.className =
             document.documentElement.className.replace('no-js', 'js') +
-            (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Bas
-            icStructure", "1.1") ? ' svg' : ' no-svg');
+            (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? ' svg' : ' no-svg');
         </script>
+
 </head>
 <body>
         <nav class="navbar navbar-expand p-0">
-            <a class="navbar-brand text-center col-xs-12 col-md-3 col-lg-2 mr-0"
-                href="index.html"> Larashop </a>
+            <a class="navbar-brand text-center col-xs-12 col-md-3 col-lg-2 mr-0" href="index.html"> Larashop </a>
             <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button" >
                 <span class="oi oi-menu"></span>
             </button>
-            <input class="border-dark bg-primary-darkest form-control d-none d-
-            md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-
-            label="Search">
+            <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-label="Search">
 
             <div class="dropdown d-none d-md-block">
                 @if(\Auth::user())
@@ -50,7 +47,6 @@
                 @endif
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">
                 <a href="#" class="dropdown-item">Profile</a>
-
             <div class="dropdown-divider"></div>
                 <li>
                 <form action="{{route("logout")}}" method="POST">
@@ -75,6 +71,12 @@
                     </li>
                     <li><a href="{{route('categories.index')}}"><span class="oi oi-tag"></span>
                         Manage categories</a>
+                    </li>
+                    <li><a href="{{route('books.index')}}"><span class="oi oi-book"></span>
+                        Manage books</a>
+                    </li>
+                    <li><a href="{{route('orders.index')}}"><span class="oi oi-inbox"></span>
+                        Manage orders</a>
                     </li>
 
                     <div class="d-block d-md-none">
@@ -110,11 +112,11 @@
 
             <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-            <script stc="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min
-            .js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            <script stc="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
             crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js
-            " integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-            crossorigin="anonymous"></script>
+            " integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+            @yield('footer-scripts')
+
 </body>
 </html>
